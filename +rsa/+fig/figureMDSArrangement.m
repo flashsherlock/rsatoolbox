@@ -10,7 +10,7 @@ function figureMDSArrangement(RDM, userOptions, localOptions)
 %       conditions). which ones of these visualizations are produced is
 %       controlled by setting the fields of the options argument.
 %
-%		Written by Niko Kriegeskorte, edited by Cai Wingfield and Ian Charest
+%		Written by Niko Kriegeskorte, edited by Cai Wingfield
 %
 % USAGE
 %       showMDSarrangement(RDM, userOptions, localOptions)
@@ -21,12 +21,8 @@ function figureMDSArrangement(RDM, userOptions, localOptions)
 %       or in square-matrix or upper-triangular-vector format.
 %
 %        userOptions --- The options struct.
-%                userOptions.projectName:
-%                        A string which is prepended to the saved files. 
-%                        This string is specific to the current project
 %                userOptions.analysisName
-%                        A string which is prepended to the saved files. 
-%                        This string is specific to the current analysis.
+%                        A string which is prepended to the saved files.
 %                userOptions.rootPath
 %                        A string describing the root path where files will be
 %                        saved (inside created directories).
@@ -245,9 +241,9 @@ if isfield(userOptions, 'colourmap')
 
 	% Then export and/or close figures appropriately
 	gotoDir(userOptions.rootPath);
-	fileName = sprintf('%s_%s_%s',userOptions.projectName,userOptions.analysisName, localOptions.fileName);
+	fileName = [userOptions.analysisName '_' localOptions.fileName];
 	handleCurrentFigure(fileName, userOptions);
-	clear filename
+	clear thisFileName
 end
 
 end%function

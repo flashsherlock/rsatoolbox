@@ -9,12 +9,8 @@ function pairwiseCorrelateRDMs(varargin)
 %                to create a large second-order similarity matrix.
 %
 %        userOptions --- The options struct.
-%                userOptions.projectName
-%               		 A string which is prepended to the saved files. 
-%		    	   	     This string is specific to the current project
-%		  		 userOptions.analysisName
-%		         	     A string which is prepended to the saved files. 
-%		   				 This string is specific to the current analysis.
+%                userOptions.analysisName
+%                        A string which is prepended to the saved files.
 %                userOptions.rootPath
 %                        A string describing the root path where files will be
 %                        saved (inside created directories).
@@ -73,7 +69,6 @@ else
 end%if:nargin
 
 %% Set defaults and check options struct
-if ~isfield(userOptions, 'projectName'), error('pairwiseCorrelateRDMs:NoProjectName', 'ProjectName must be set. See help'); end%if
 if ~isfield(userOptions, 'analysisName'), error('pairwiseCorrelateRDMs:NoAnalysisName', 'analysisName must be set. See help'); end%if
 if ~isfield(userOptions, 'rootPath'), error('pairwiseCorrelateRDMs:NoRootPath', 'rootPath must be set. See help'); end%if
 userOptions = setIfUnset(userOptions, 'RDMcorrelationType', 'Spearman');
@@ -100,8 +95,7 @@ anchorCols=[0 0 1
             ];
 cols=colorScale(anchorCols,256);
 set(gcf,'Colormap', cols);
-
-thisFileName = sprintf('%s_%s_%s_secondOrderSM',userOptions.projectName,userOptions.analysisName,localOptions.fileName);
+thisFileName = [userOptions.analysisName '_' localOptions.fileName 'secondOrderSM'];
 
 gotoDir(userOptions.rootPath);
 handleCurrentFigure(thisFileName, userOptions);
@@ -110,7 +104,6 @@ handleCurrentFigure(thisFileName, userOptions);
 disp(['Saving second-order similarity matrix to ' fullfile(userOptions.rootPath, 'Statistics', thisFileName)]);
 
 gotoDir(userOptions.rootPath, 'Statistics');
-
 save([thisFileName '.mat'], 'corrMat');
 
 cd(returnHere);

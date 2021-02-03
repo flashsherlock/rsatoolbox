@@ -38,12 +38,8 @@ function [varargout] = fMRISearchlight(fullBrainVols, binaryMasks_nS, models, be
 %
 %
 %        userOptions --- The options struct.
-%                userOptions.projectName
-%               		 A string which is prepended to the saved files. 
-%		    	   	     This string is specific to the current project
-%		  		 userOptions.analysisName
-%		         	     A string which is prepended to the saved files. 
-%		   				 This string is specific to the current analysis.
+%                userOptions.analysisName
+%                        A string which is prepended to the saved files.
 %                userOptions.rootPath
 %                        A string describing the root path where files will be
 %                        saved (inside created directories).
@@ -100,18 +96,16 @@ import rsa.util.*
 returnHere = pwd; % We'll come back here later
 
 %% Set defaults and check options struct
-if ~isfield(userOptions, 'projectName'), error('fMRISearchlight:NoProjectName', 'ProjectName must be set. See help'); end%if
 if ~isfield(userOptions, 'analysisName'), error('fMRISearchlight:NoAnalysisName', 'analysisName must be set. See help'); end%if
 if ~isfield(userOptions, 'rootPath'), error('fMRISearchlight:NoRootPath', 'rootPath must be set. See help'); end%if
 userOptions = setIfUnset(userOptions, 'subjectNames', fieldnames(fullBrainVols));
 userOptions = setIfUnset(userOptions, 'maskNames', fieldnames(binaryMasks_nS.(userOptions.subjectNames{1})));
 if ~isfield(userOptions, 'voxelSize'), error('fMRISearchlight:NoVoxelSize', 'voxelSize must be set. See help'); end%if
 
-
 % The analysisName will be used to label the files which are eventually saved.
-mapsFilename = sprintf('%s_%s_fMRISearchlight_Maps.mat',userOptions.projectName,userOptions.analysisName);
-RDMsFilename = sprintf('%s_%s_fMRISearchlight_RDMs.mat',userOptions.projectName); % the brain RDMs don't change from analysis to analysis.
-DetailsFilename = sprintf('%s_%s_fMRISearchlight_Details.mat',userOptions.projectName,userOptions.analysisName);
+mapsFilename = [userOptions.analysisName, '_fMRISearchlight_Maps.mat'];
+RDMsFilename = [userOptions.analysisName, '_fMRISearchlight_RDMs.mat'];
+DetailsFilename = [userOptions.analysisName, '_fMRISearchlight_Details.mat'];
 
 promptOptions.functionCaller = 'fMRISearchlight';
 promptOptions.defaultResponse = 'S';

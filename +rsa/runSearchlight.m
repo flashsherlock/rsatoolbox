@@ -25,8 +25,6 @@ function runSearchlight(Searchlight,inFiles,outFiles,rsaFunction,varargin)
 %   idealBlock:     ideal Block size (default 7e5) 
 % (C) Joern Diedrichsen 2015 
 
-import rsa.surf.*
-
 % User optional parameters 
 Opt.optionalParams = []; 
 Opt.subset         = []; 
@@ -81,7 +79,7 @@ end;
 
 % Check 
 if (size(Searchlight.voxel,2)==3)       % I,J,K coordinates 
-    Searchlight.voxel = rsa.surf.surfing_subs2inds(VolIn(1).dim,Searchlight.voxel(:,1:3));
+    Searchlight.voxel = surfing_subs2inds(VolIn(1).dim,Searchlight.voxel(:,1:3));
 elseif (size(Searchlight.voxel,2)==1)   % Linear coordinates: do nothing 
 else 
     error('Searchlight.voxel needs to be nVoxel x 3 or nVoxel x 1 ');
@@ -159,7 +157,7 @@ for b=1:numBlocks;
     end;
     clear I J K; % Keep memory small 
     
-    % Now call the rsaFunction with the input 
+    % Now call the rsaFunction with the inpit 
     for i = 1:size(T.LI,1);
         if (Opt.transposeInput) 
             Result(:,T.j(i)) = feval(rsaFunction,full(X(T.LI{i},:)),Opt.optionalParams{:});

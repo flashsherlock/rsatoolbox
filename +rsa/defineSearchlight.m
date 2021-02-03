@@ -52,11 +52,9 @@ function L = defineSearchlight(Structures,Mask,varargin)
 %                   nVox x 1 vector of linear voxel indices for the centers of search-lights
 %       structure:  Defines which of the structures the searchlight voxels
 %                   belong to
-import rsa.util.*
 
 Opt.progressstep = 100;   % Progress step reporting 
 Opt.writeMask     = 0;    % Save the full mask image for included voxels? 
-
 
 rsa.getUserOptions(varargin,Opt,{'progressstep','saveMask'}); 
 
@@ -100,7 +98,7 @@ for i=1:length(idxVol)
     end; 
     [Li,exclMask]   = rsa.defineSearchlight_volume(Structures{idxVol(i)},exclMask,currentOpt);
     Li.structure    = numStruct*ones(size(Li.LI,1),1);
-    L = rsa.util.addstruct(L,Li);
+    L = addstruct(L,Li);
     numStruct = numStruct+1; 
 end;
 

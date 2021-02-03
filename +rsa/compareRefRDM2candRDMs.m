@@ -382,9 +382,6 @@ userOptions = setIfUnset(userOptions, 'saveFigurePS', false);
 userOptions = setIfUnset(userOptions, 'figure1filename', 'compareRefRDM2candRDMs_barGraph');
 userOptions = setIfUnset(userOptions, 'figure2filename', 'compareRefRDM2candRDMs_RDMcomparisonPvalues');
 
-if ~isfield(userOptions, 'projectName'), error('compareRefRDM2candRDMs:NoProjectName', 'ProjectName must be set. See help'); end%if
-if ~isfield(userOptions, 'analysisName'), error('compareRefRDM2candRDMs:NoAnalysisName', 'analysisName must be set. See help'); end%if
-
 %% inspect arguments and unwrap and average RDMs
 
 refRDM_stack = stripNsquareRDMs(refRDM);
@@ -1094,16 +1091,16 @@ handleCurrentFigure([userOptions.resultsPath,filesep,userOptions.figure2filename
 %% save it
 cd(fullfile(userOptions.rootPath));
 if userOptions.saveFiguresPS
-    saveas(gcf,sprintf('%s_%s_comparingRefRDM2CandRDMs.eps',userOptions.projectName,userOptions.analysisName),'eps');    
+    saveas(gcf,[userOptions.analysisName,'_comparingRefRDM2CandRDMs','.eps'],'eps');
 end
 if userOptions.saveFiguresFig
-    saveas(gcf,sprintf('%s_%s_comparingRefRDM2CandRDMs.fig',userOptions.projectName,userOptions.analysisName),'fig');
+    saveas(gcf,[userOptions.analysisName,'_comparingRefRDM2CandRDMs','.fig'],'fig');
 end
 if userOptions.saveFiguresPDF
-    exportCurrentFigAsPDF(sprintf('%s_%s_comparingRefRDM2CandRDMs',userOptions.projectName,userOptions.analysisName),userOptions);
+    exportCurrentFigAsPDF([userOptions.analysisName,'_comparingRefRDM2CandRDMs'],userOptions);
 end
 if userOptions.saveFiguresPS
-    exportCurrentFigAsPostscript(sprintf('%s_%s_comparingRefRDM2CandRDMs.ps',userOptions.projectName,userOptions.analysisName),userOptions);
+    exportCurrentFigAsPostscript([userOptions.analysisName,'.ps'],userOptions);
 end
 
 end%function
