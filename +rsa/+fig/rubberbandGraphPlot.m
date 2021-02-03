@@ -102,7 +102,10 @@ else % if distortions present...
         % find pairs to be connected by lines of this thickness
         pairs_utvLOG=thicknessEdges(distortionBinI)<thickness_utv & thickness_utv<=thicknessEdges(distortionBinI+1);
         thickness_pts=mean(thicknessEdges(distortionBinI:distortionBinI+1))/unitsPerPoint;
-
+        % added to avoid thickness_pts=0 error
+        if thickness_pts==0
+            thickness_pts=1;
+        end
         is=i_utv(pairs_utvLOG);
         js=j_utv(pairs_utvLOG);
 
