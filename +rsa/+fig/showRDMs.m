@@ -31,7 +31,7 @@ if ~exist('showColorbar','var'), showColorbar=true; end
 if ~exist('aspect', 'var') || isempty(aspect), aspect = 2/3; end
 
 %% handle RDM types
-
+% RDMcolormap is a function
 colourScheme = RDMcolormap;
 if isstruct(RDMs)
 	[rawRDMs nRDMs] = unwrapRDMs(RDMs);
@@ -167,7 +167,10 @@ if showColorbar
     end
     set(ht,'FontSize',.06);
     axis square off;
-    %colormapJet4Print;
+    % add right color bar RDMcolormap
+    if exist('colourScheme', 'var')
+		colormap(gca, colourScheme);
+    end
     colorbar;
 end
 
