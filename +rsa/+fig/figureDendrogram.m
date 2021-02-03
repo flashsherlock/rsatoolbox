@@ -68,7 +68,8 @@ if isfield(userOptions, 'conditionColours');
 	if size(userOptions.conditionColours, 1) == size(squareRDM(RDM), 1)
 		x = xlim(gca);
 		for condition = 1:size(squareRDM(RDM), 1)
-			plot(x(1), labelReordering(condition), 'o', 'MarkerFaceColor', userOptions.conditionColours(condition, :), 'MarkerEdgeColor', 'none', 'MarkerSize', 8);
+            % changed to match labels and colors
+			plot(x(1), condition, 'o', 'MarkerFaceColor', userOptions.conditionColours(labelReordering(condition), :), 'MarkerEdgeColor', 'none', 'MarkerSize', 8);
 		end%for:condition
 	else
 		error('figureDendrogram:wrongNumberOfConditionColours', 'Number of conditions is not the same as the number colours of userOptions.conditionColours. Please fix it!');
